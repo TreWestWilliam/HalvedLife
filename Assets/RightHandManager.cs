@@ -40,6 +40,11 @@ public class RightHandManager : MonoBehaviour
             if (Physics.Raycast(PistolTip.position, -PistolTip.forward, out ray))
             {
                 Debug.Log($"Shot: {ray.collider.gameObject.name}");
+                ShotInteractable LetsInteract = ray.collider.gameObject.GetComponent<ShotInteractable>();
+                if (LetsInteract != null) 
+                {
+                    LetsInteract.OnHit();
+                }
             }
             AmmoCount--;
         }
@@ -52,17 +57,24 @@ public class RightHandManager : MonoBehaviour
     public void ToggleState(RightHandStates rightState) 
     {
         HandState = rightState;
+        RefreshState();
+    
+    }
+    public void ToggleState(int IteratorOfState) { ToggleState((RightHandStates)IteratorOfState); }
+
+    public void RefreshState()
+    {
         DisableObjects();
-        switch (rightState)    
+        switch (HandState)
         {
             case (RightHandStates)0: break;
             case RightHandStates.pistol: PistolObject.SetActive(true); break;
             case RightHandStates.uiselection: WeaponUI.SetActive(true); RayInteractorObject.SetActive(true); break;
         }
-    
+
     }
 
-    public void ToggleState(int IteratorOfState) { ToggleState((RightHandStates)IteratorOfState); }
+    
     private void DisableObjects() 
     {
         PistolObject.SetActive(false);
