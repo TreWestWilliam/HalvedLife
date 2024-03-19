@@ -9,6 +9,17 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/Assets/Models/
+/Assets/Materials/
+/Assets/Textures/
+/Assets/SubwayTrain/
+/Assets/Samples/
+/Assets/Sound/
+/Assets/Scenes/GameScene
+Assets\Scenes\GameScene 1\
+/Assets/RubbleAndDebrisSample/
+/Assets/Unity Asset Unlocks - Bedroom/
+/Assets/Unity Asset Unlocks - Kitchen/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -70,3 +81,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Scenes/BasicScene/LightingData.asset
+Assets/Scenes/GameScene 1/LightingData.asset
+Assets/Scenes/GameScene 1/LightingData.asset
