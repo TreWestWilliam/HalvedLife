@@ -37,6 +37,8 @@ public class ZombieAI : MonoBehaviour
                 agent.destination = new(Player.transform.position.x, Player.transform.position.y, Player.transform.position.z);
                 //Debug.Log("Can See player");
                 TargetVisible = true;
+                agent.gameObject.transform.LookAt(Player.transform);
+                agent.transform.rotation = Quaternion.Euler(0, agent.transform.rotation.eulerAngles.y, 0);
             }
             else 
             {

@@ -1,6 +1,18 @@
+Project is built in the Unity Engine,
+Utilizing Unity's XRI system. 
+
 UI SFX from www.littlerobotsoundfactory.com, licensed under CC-BY 3.0
 Urban Textures from KNau (https://opengameart.org/content/urban-jungle) Public domain
 Painting Frame from kindland (Public Domain CC0)
 https://opengameart.org/content/victorian-frame-painting
 Soundscape - Last 31 - Cinematic Piano by Tri-Tachyon
 CC-BY 4.0 https://opengameart.org/content/soundscape-last-31-cinematic-piano
+100 CC0 SFX from rubberduck - Public Domain
+https://opengameart.org/content/100-cc0-sfx
+
+Multiple textures from:
+Ambientcg.com
+3dtextures.me
+
+Special thanks to:
+opengameart.org for being an awesome repository for many different artist's work.

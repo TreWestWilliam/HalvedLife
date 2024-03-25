@@ -18,9 +18,18 @@ public class RightHandManager : MonoBehaviour
     public Animator PistolAnimator;
     public TMP_Text AmmoCountDisplay;
     public AudioClip FailedShot;
+    public AudioSource ASource;
     public int AmmoCount;
     public int MaxAmmo;
-    
+    public float ShotDelay;
+    private float TimeTillNextShot;
+
+    [Header("Testing Variables")]
+    public float WeaponUISpawnDistance = 10.0f;
+
+    [Header("Hand Animation")]
+    public Animator HandAnimator;
+    public XRRayInteractor XRray;
     
 
     [Header("Interaction Objects")]
@@ -36,29 +45,38 @@ public class RightHandManager : MonoBehaviour
         RaycastHit ray;
 
         //Firing the Gun
-        //Checking Ammo count first
-        if (AmmoCount > 0)
+        //Check if we're not delayed ( seperate from the next check so we dont spam the non firing sound)
+        if (Time.time > TimeTillNextShot) 
         {
-            //Tell the Animator we're firing
-            PistolAnimator.SetBool("Firing", true);
-            PistolAnimator.SetTrigger("Fire");
-            //Check if it'll hit anything
-            if (Physics.Raycast(PistolTip.position, -PistolTip.forward, out ray))
+            //Checking Ammo count
+            if (AmmoCount > 0)
             {
-                Debug.Log($"Shot: {ray.collider.gameObject.name}");
-                ShotInteractable LetsInteract = ray.collider.gameObject.GetComponent<ShotInteractable>();
-                if (LetsInteract != null) 
+                //Tell the Animator we're firing
+                PistolAnimator.SetBool("Firing", true);
+                PistolAnimator.SetTrigger("Fire");
+                //Check if it'll hit anything
+                if (Physics.Raycast(PistolTip.position, -PistolTip.forward, out ray))
                 {
-                    LetsInteract.OnHit();
+                    Debug.Log($"Shot: {ray.collider.gameObject.name}");
+                    ShotInteractable LetsInteract = ray.collider.gameObject.GetComponent<ShotInteractable>();
+                    if (LetsInteract != null)
+                    {
+                        LetsInteract.OnHit();
+                    }
+                }
+                AmmoCount--;
+                UpdateAmmoCount();
+                TimeTillNextShot = Time.time + ShotDelay;
+            }
+            else
+            {
+                if (ASource != null)
+                {
+                    ASource.PlayOneShot(FailedShot);
                 }
             }
-            AmmoCount--;
-            UpdateAmmoCount();
         }
-        else
-        {
-            // TODO FAILED FIRE SOUND???
-        }
+        
     }
 
     private void UpdateAmmoCount() 
@@ -165,6 +183,13 @@ public class RightHandManager : MonoBehaviour
     public void MenuButton() 
     {
         Debug.Log("Menu Button Pressed");
+        //Vector3 UIPOS = Camera.main.transform.position + (Camera.main.transform.forward * WeaponUISpawnDistance);
+        Vector3 UIPOS = transform.position + (transform.forward * WeaponUISpawnDistance);
+        UIPOS.y = transform.position.y;
+        WeaponUI.transform.position = UIPOS;
+        WeaponUI.transform.rotation = Quaternion.LookRotation(UIPOS-transform.position);
+
+
     }
 
 }

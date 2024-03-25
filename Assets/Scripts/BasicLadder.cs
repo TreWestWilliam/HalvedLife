@@ -10,6 +10,7 @@ public class BasicLadder : MonoBehaviour
     public float ClimbingTime = 5.0f;
     public Transform ClimbedPosition;
     public bool IsClimbing = false;
+    [SerializeReference]
     private float FinishTime;
 
     [Header("Necessary")]

@@ -16,7 +16,7 @@
 /Assets/Samples/
 /Assets/Sound/
 /Assets/Scenes/GameScene
-Assets\Scenes\GameScene 1\
+/Assets/Scenes/GameScene*1/
 /Assets/RubbleAndDebrisSample/
 /Assets/Unity Asset Unlocks - Bedroom/
 /Assets/Unity Asset Unlocks - Kitchen/
@@ -84,3 +84,6 @@ crashlytics-build.properties
 Assets/Scenes/BasicScene/LightingData.asset
 Assets/Scenes/GameScene 1/LightingData.asset
 Assets/Scenes/GameScene 1/LightingData.asset
+Assets/Scenes/GameScene 1/LightingData.asset
+Assets/Scenes/GameScene 1/LightingData.asset.meta
+/Assets/Scenes/GameScene 1
