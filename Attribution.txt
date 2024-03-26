@@ -10,6 +10,12 @@ CC-BY 4.0 https://opengameart.org/content/soundscape-last-31-cinematic-piano
 100 CC0 SFX from rubberduck - Public Domain
 https://opengameart.org/content/100-cc0-sfx
 
+"Dripping Water Loop" by Independent.nu
+CC0 https://opengameart.org/content/dripping-water-loop
+
+Various Ambient sounds from Blender Foundation CC-BY 3.0
+https://apricot.blender.org/
+
 Multiple textures from:
 Ambientcg.com
 3dtextures.me
