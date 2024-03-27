@@ -22,6 +22,7 @@ public class RightHandManager : MonoBehaviour
     public int AmmoCount;
     public int MaxAmmo;
     public float ShotDelay;
+    [SerializeReference]
     private float TimeTillNextShot;
 
     [Header("Testing Variables")]
@@ -30,6 +31,11 @@ public class RightHandManager : MonoBehaviour
     [Header("Hand Animation")]
     public Animator HandAnimator;
     public XRRayInteractor XRray;
+    [SerializeReference]
+    private bool HandTargeting;
+    public Transform HandTarget;
+    public Transform DefaultHandTransform;
+    [Space]
     
 
     [Header("Interaction Objects")]
@@ -37,6 +43,7 @@ public class RightHandManager : MonoBehaviour
     public GameObject RayInteractorObject;
     public GameObject HandObject;
     public GameObject WeaponUI;
+
 
     //TODO : PROPER STATE MACHINE FOR GUN/TOOLS/HAND
 
@@ -92,6 +99,8 @@ public class RightHandManager : MonoBehaviour
 
     public void ToggleState(RightHandStates rightState) 
     {
+        if (HandTargeting == true) { HandReturnPosition(); }
+
         HandState = rightState;
         RefreshState();
     
@@ -106,6 +115,7 @@ public class RightHandManager : MonoBehaviour
             case (RightHandStates)0: break;
             case RightHandStates.pistol: PistolObject.SetActive(true); break;
             case RightHandStates.uiselection: WeaponUI.SetActive(true); RayInteractorObject.SetActive(true); break;
+ 
         }
 
     }
@@ -115,7 +125,7 @@ public class RightHandManager : MonoBehaviour
     {
         PistolObject.SetActive(false);
         RayInteractorObject.SetActive(false);
-        HandObject.SetActive(false);
+        //HandObject.SetActive(false);
         WeaponUI.SetActive(false);
 
     }
@@ -165,6 +175,25 @@ public class RightHandManager : MonoBehaviour
         SecondaryAction.Disable();
         TriggerPressed.Disable();
     }
+
+    public void HandTargetPosition(Transform target) 
+    { 
+        if (HandState == RightHandStates.hand) 
+        {
+            HandTargeting = true;
+            HandObject.transform.SetPositionAndRotation(target.position, target.rotation);
+        }
+    }
+
+    public void HandReturnPosition()
+    {
+        if (HandState == RightHandStates.hand)
+        {
+            HandTargeting = false;
+            HandObject.transform.SetPositionAndRotation(DefaultHandTransform.position, DefaultHandTransform.rotation);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -188,9 +217,9 @@ public class RightHandManager : MonoBehaviour
         UIPOS.y = transform.position.y;
         WeaponUI.transform.position = UIPOS;
         WeaponUI.transform.rotation = Quaternion.LookRotation(UIPOS-transform.position);
-
-
     }
+
+
 
 }
 

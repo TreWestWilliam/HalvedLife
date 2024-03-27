@@ -71,11 +71,12 @@ public class ComparisonCameraSystem : MonoBehaviour
         yield return new WaitForEndOfFrame();
         //RT = cam.activeTexture;
         RenderTexture.active = RT;
-        Texture2D texture = new Texture2D(RT.width, RT.height, TextureFormat.RGBA32, false,false);
+        Texture2D texture = new Texture2D(RT.width, RT.height, TextureFormat.RGB24, false,true);
         texture.ReadPixels(new Rect(0, 0, RT.width, RT.height), 0, 0);
+        texture.Apply();
         RenderTexture.active = null;
 
-        byte[] bytes = texture.EncodeToPNG();
+        byte[] bytes = ImageConversion.EncodeToPNG(texture);
         DestroyImmediate(texture);
         string name;
 
