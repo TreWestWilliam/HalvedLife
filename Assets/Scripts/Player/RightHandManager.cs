@@ -70,6 +70,17 @@ public class RightHandManager : MonoBehaviour
                     {
                         LetsInteract.OnHit();
                     }
+
+                    if (ray.collider.CompareTag("Enemy")) 
+                    {
+                        ZombieAI parentai = ray.collider.GetComponentInParent<ZombieAI>();
+                        if (parentai != null) 
+                        {
+                            parentai.Damage(gameObject);
+                        }
+                    
+                    }
+
                 }
                 AmmoCount--;
                 UpdateAmmoCount();

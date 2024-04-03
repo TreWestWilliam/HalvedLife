@@ -7,6 +7,8 @@ public class ZombieAI : MonoBehaviour
 {
     [Header("Enemy Variables")]
     public int health = 3;
+    [SerializeReference]
+    private bool IsDead = false;
 
     [Header("AI Variables")]
     public GameObject Player;
@@ -30,22 +32,26 @@ public class ZombieAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics.Raycast(transform.position, (Player.transform.position-transform.position ), out canSeePlayer)) 
+        if (!IsDead) //Doing this before the Raycast for performance lmao
         {
-            if (canSeePlayer.transform.gameObject == Player)
+            if (Physics.Raycast(transform.position, (Player.transform.position - transform.position), out canSeePlayer))
             {
-                agent.destination = new(Player.transform.position.x, Player.transform.position.y, Player.transform.position.z);
-                //Debug.Log("Can See player");
-                TargetVisible = true;
-                agent.gameObject.transform.LookAt(Player.transform);
-                agent.transform.rotation = Quaternion.Euler(0, agent.transform.rotation.eulerAngles.y, 0);
+                if (canSeePlayer.transform.gameObject == Player)
+                {
+                    agent.destination = new(Player.transform.position.x, Player.transform.position.y, Player.transform.position.z);
+                    //Debug.Log("Can See player");
+                    TargetVisible = true;
+                    agent.gameObject.transform.LookAt(Player.transform);
+                    agent.transform.rotation = Quaternion.Euler(0, agent.transform.rotation.eulerAngles.y, 0);
+                }
+                else
+                {
+                    TargetVisible = false;
+                }
+                //Debug.Log(canSeePlayer.collider.gameObject.name);
             }
-            else 
-            {
-                TargetVisible = false; 
-            }
-            //Debug.Log(canSeePlayer.collider.gameObject.name);
         }
+        
 
         switch (AnimationState) 
         {
@@ -136,12 +142,15 @@ public class ZombieAI : MonoBehaviour
     public void Damage(GameObject damager) 
     {
         health--;
-        if (health <= 0) 
+        agent.SetDestination(new(damager.transform.position.x, damager.transform.position.y, damager.transform.position.z));
+        if (health <= 0)
         {
             //Death here
             SetAnimationState(ZombieStates.dead);
+            IsDead = true;
+            agent.isStopped = true;
+            agent.enabled = false; 
         }
-        agent.SetDestination(new(damager.transform.position.x, damager.transform.position.y, damager.transform.position.z));
         _Animator.SetTrigger("Damage");
         if (AnimationState == ZombieStates.idle) 
         {

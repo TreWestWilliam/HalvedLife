@@ -2,11 +2,15 @@ Project is built in the Unity Engine,
 Utilizing Unity's XRI system. 
 
 UI SFX from www.littlerobotsoundfactory.com, licensed under CC-BY 3.0
+
 Urban Textures from KNau (https://opengameart.org/content/urban-jungle) Public domain
+
 Painting Frame from kindland (Public Domain CC0)
 https://opengameart.org/content/victorian-frame-painting
+
 Soundscape - Last 31 - Cinematic Piano by Tri-Tachyon
 CC-BY 4.0 https://opengameart.org/content/soundscape-last-31-cinematic-piano
+
 100 CC0 SFX from rubberduck - Public Domain
 https://opengameart.org/content/100-cc0-sfx
 
@@ -15,6 +19,35 @@ CC0 https://opengameart.org/content/dripping-water-loop
 
 Various Ambient sounds from Blender Foundation CC-BY 3.0
 https://apricot.blender.org/
+
+"Splatter Pack" By Johndh CC-BY 3.0
+https://opengameart.org/content/splatter-pack
+
+Filth Texture Set: trak_rustdecal1.tga by Georges "TRaK" Grondin GPL 2.0
+https://opengameart.org/content/filth-texture-set-trakrustdecal1tga
+
+Tiny weeds 3 by Yughues CC0
+https://opengameart.org/content/tiny-weeds-3
+https://opengameart.org/content/tiny-weeds
+
+Stylish plants by Yughues CC0
+https://opengameart.org/content/stylish-plants
+
+Bushes by Yughues CC0
+https://opengameart.org/content/bushes
+
+Rocks 03 by Yughues CC0
+https://opengameart.org/content/rocks-03
+
+10 Vines variations (high poly) by p0ss GPL 2.0
+https://opengameart.org/content/10-vines-variations-high-poly
+
+Trashcan by yethiel CC0
+https://opengameart.org/content/trashcan
+
+Wood Fence Section by LawBradley CC0
+https://opengameart.org/content/wood-fence-section
+
 
 Multiple textures from:
 Ambientcg.com

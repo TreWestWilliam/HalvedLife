@@ -10,6 +10,7 @@ public class DoorRelayable : ShotRelayable
     public override void OnRelayed() 
     {
         Working = true;
+        Debug.Log($"Door {gameObject.name} opening", gameObject);
     }
     // Update is called once per frame
     void Update()
