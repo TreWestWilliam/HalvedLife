@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - 'Damageable '
+  - Anchor
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Aesthetic
+  - Player
   - 
   - 
   - 

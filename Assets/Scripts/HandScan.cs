@@ -4,14 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public class HandScan : MonoBehaviour
+public class HandScan : HandSnappable
 {
-    [Header("Hand Management")]
-    public Transform HandTarget;
-
-    private GameObject HandObject;
-    private RightHandManager HandManager;
-    private HealthSystem HS;
+    
     [Space]
     [Header("Scan Variables")]
     public float ScanTime;
@@ -28,39 +23,37 @@ public class HandScan : MonoBehaviour
     public TMP_Text DisplayText;
     public string Description;
     public AudioClip CompletedChime;
+    public AudioClip VoiceOver;
     public AudioSource _AudioSource;
     private string UnusedText;
     [Space]
 
     public UnityEngine.Events.UnityEvent CompletedScan;
 
-    public void OnTriggerEnter(Collider other)
+    public override void OnHandSnapped(GameObject other)
     {
-        HS = other.GetComponentInParent<HealthSystem>();
-        RightHandManager HM = other.GetComponentInChildren<RightHandManager>();
-        if (HM != null && CanScan) 
-        {
-            HandManager = HM;
-            HandObject = other.gameObject;
-            HM.HandTargetPosition(HandTarget);
+        base.OnHandSnapped(other);
 
-            Scanning = true;
-            ScanTimer = ScanTime;
-            DisplayText.text = "Scanning...";
-            Debug.Log("Found 1");
+        if (!Scanning) 
+        {
+            if (CanScan)
+            {
+                HandObject = other;
+                Scanning = true;
+                ScanTimer = ScanTime;
+                DisplayText.text = "Scanning...";
+                Debug.Log("Found 1");
+            }
         }
+        
         Debug.Log($"{other.name} entered", gameObject);
     }
 
-    public void OnTriggerExit(Collider other)
+    public override void OnHandUnsnapped(GameObject other)
     {
-        RightHandManager HM = other.GetComponent<RightHandManager>();
-        if (HM != null) 
-        {
-            HM.HandReturnPosition();
-            Scanning = false;
-        }
-        
+        base.OnHandUnsnapped(other);
+        Debug.Log("No longer scanning", gameObject);
+        Scanning = false;
     }
 
     private void CompleteScan() 
@@ -81,8 +74,22 @@ public class HandScan : MonoBehaviour
             if (_AudioSource != null) 
             {
                 _AudioSource.PlayOneShot(CompletedChime);
+                _AudioSource.PlayOneShot(VoiceOver);
+                //Invoke("ScanVO", .05f);
             }
         }
+    }
+
+    private void ScanVO() 
+    {
+        _AudioSource.PlayOneShot(VoiceOver);
+    }
+
+    void EndScan() 
+    {
+        DisplayText.text = UnusedText;
+        Scanning = false;
+        CanScan = true;
     }
 
     // Start is called before the first frame update
@@ -95,17 +102,21 @@ public class HandScan : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Scanning) 
+        if (Scanning)
         {
-            if (ScanTimer > 0) 
+            if (ScanTimer > 0)
             {
                 ScanTimer -= Time.deltaTime;
-                DisplayText.text = $"Scanning...\n { ((ScanTimer / ScanTime) - 1) *-100}% Complete";
+                DisplayText.text = $"Scanning...\n { ((ScanTimer / ScanTime) - 1) * -100}% Complete";
             }
-            else 
+            else
             {
                 CompleteScan();
             }
+        }
+        else 
+        {
+            EndScan();
         }
     }
 }

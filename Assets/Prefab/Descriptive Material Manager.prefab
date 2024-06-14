@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5504311182543256926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4810102721712544182}
+  - component: {fileID: 7568481774100705248}
+  m_Layer: 0
+  m_Name: Descriptive Material Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4810102721712544182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5504311182543256926}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7568481774100705248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5504311182543256926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0f900e7daf0e840b908954e3b3b3a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaterialList:
+  - MaterialName: None
+    GunshotDecals: []
+    GunshotHitSounds: []
+    ImpactSounds: []
+    FootstepSounds: []
+  - MaterialName: Wood
+    GunshotDecals: []
+    GunshotHitSounds: []
+    ImpactSounds:
+    - {fileID: 8300000, guid: f5b028257d371104f8164997ae22e764, type: 3}
+    - {fileID: 8300000, guid: da43e224232d3614eb6c708b7d0b9686, type: 3}
+    - {fileID: 8300000, guid: c916af0b67a90dc4394c765149c71ffa, type: 3}
+    - {fileID: 8300000, guid: 5e7d1ac337e83844dbc0112e137af63e, type: 3}
+    - {fileID: 8300000, guid: a47dffeca5373bc42abe6e29337e4a18, type: 3}
+    FootstepSounds: []
+  - MaterialName: Stone
+    GunshotDecals: []
+    GunshotHitSounds: []
+    ImpactSounds: []
+    FootstepSounds: []
+  - MaterialName: Concrete
+    GunshotDecals: []
+    GunshotHitSounds: []
+    ImpactSounds: []
+    FootstepSounds: []
+  - MaterialName: Metal
+    GunshotDecals: []
+    GunshotHitSounds: []
+    ImpactSounds: []
+    FootstepSounds: []
+  - MaterialName: Wet
+    GunshotDecals: []
+    GunshotHitSounds:
+    - {fileID: 8300000, guid: daff6218a99be5f4f9c71768ada391f1, type: 3}
+    ImpactSounds:
+    - {fileID: 8300000, guid: 8da7668266edb7146ac19fbab313407e, type: 3}
+    FootstepSounds:
+    - {fileID: 8300000, guid: 9fe68ff5d3e452742b7d91eb11bf6fbc, type: 3}
+  - MaterialName: Tile
+    GunshotDecals: []
+    GunshotHitSounds: []
+    ImpactSounds: []
+    FootstepSounds: []
+  - MaterialName: Gravel
+    GunshotDecals: []
+    GunshotHitSounds: []
+    ImpactSounds: []
+    FootstepSounds:
+    - {fileID: 8300000, guid: 7cd4e52ad1374354db9ca7ab853d826b, type: 3}

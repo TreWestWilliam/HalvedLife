@@ -36,9 +36,10 @@ public class BasicLadder : MonoBehaviour
         if (IsClimbing) 
         {
             float percentage = ((1-(climbPer/ClimbingTime)) *100);
-            PercentText.text = $"{percentage}%";
+            PercentText.text = string.Format("{0:F0}%", percentage); //$"{percentage}%";
             if (climbPer < 0) 
             {
+                Player.transform.parent.position = ClimbedPosition.position;
                 Player.transform.position = ClimbedPosition.position;
             }
 

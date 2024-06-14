@@ -27,6 +27,11 @@ public class ZombieAI : MonoBehaviour
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
         SwapState(AnimationState);
+        if (Player == null) 
+        {
+            Player = GameObject.Find("XR Origin (XR Rig)");
+        }
+
     }
 
     // Update is called once per frame

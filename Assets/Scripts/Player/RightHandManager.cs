@@ -35,6 +35,7 @@ public class RightHandManager : MonoBehaviour
     private bool HandTargeting;
     public Transform HandTarget;
     public Transform DefaultHandTransform;
+    public Transform HandTransformBackup;
     [Space]
     
 
@@ -43,6 +44,8 @@ public class RightHandManager : MonoBehaviour
     public GameObject RayInteractorObject;
     public GameObject HandObject;
     public GameObject WeaponUI;
+    public HandSnappable CurrentlySnapped;
+    public HealthSystem HSystem;
 
 
     //TODO : PROPER STATE MACHINE FOR GUN/TOOLS/HAND
@@ -81,6 +84,13 @@ public class RightHandManager : MonoBehaviour
                     
                     }
 
+                    GunMovable GM = ray.transform.gameObject.GetComponent<GunMovable>();
+                    if (GM != null) 
+                    {
+                        GM.OnHit(gameObject);
+                    }
+
+
                 }
                 AmmoCount--;
                 UpdateAmmoCount();
@@ -106,6 +116,7 @@ public class RightHandManager : MonoBehaviour
     {
         AmmoCount = MaxAmmo;
         UpdateAmmoCount();
+        HSystem.Damage(10.0f);
     }
 
     public void ToggleState(RightHandStates rightState) 
@@ -164,7 +175,11 @@ public class RightHandManager : MonoBehaviour
     {
         Debug.Log("Secondary Button Used");
         // temporary reload please redo later :D 
-        Reload();
+        if (HandState == RightHandStates.pistol) 
+        {
+            Reload();
+        }
+        
     }
 
     private void OpenWeaponMenu_performed(InputAction.CallbackContext obj)
@@ -189,7 +204,7 @@ public class RightHandManager : MonoBehaviour
 
     public void HandTargetPosition(Transform target) 
     { 
-        if (HandState == RightHandStates.hand) 
+        if (HandState == RightHandStates.hand || HandState == RightHandStates.snapped) 
         {
             HandTargeting = true;
             HandObject.transform.SetPositionAndRotation(target.position, target.rotation);
@@ -198,7 +213,7 @@ public class RightHandManager : MonoBehaviour
 
     public void HandReturnPosition()
     {
-        if (HandState == RightHandStates.hand)
+        if (HandState == RightHandStates.hand || HandState == RightHandStates.snapped)
         {
             HandTargeting = false;
             HandObject.transform.SetPositionAndRotation(DefaultHandTransform.position, DefaultHandTransform.rotation);
@@ -208,14 +223,62 @@ public class RightHandManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //DefaultHandTransform = HandObject.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Debug.DrawRay(PistolTip.position, -PistolTip.forward);
-        
+        if (HandState == RightHandStates.hand) 
+        {
+            RaycastHit handHit;
+            if (Physics.Raycast(transform.position, transform.forward, out handHit)) 
+            {
+                HandSnappable HS = handHit.collider.GetComponent<HandSnappable>();
+                if (HS != null)
+                {
+                    Debug.Log($"Hit a snappable.  Distance:{handHit.distance} Required:{HS.distanceSnapped}", gameObject);
+                    if (HS.TrySnap(gameObject))
+                    {
+                        CurrentlySnapped = HS;
+                        
+                        ToggleState(RightHandStates.snapped);
+                    }
+                }
+            }
+        }
+        else if (HandState == RightHandStates.snapped) 
+        {
+            RaycastHit handHit;
+            if (Physics.Raycast(transform.position, transform.forward, out handHit))
+            {
+                HandSnappable HS = handHit.collider.GetComponent<HandSnappable>();
+                if (HS != null)
+                {
+                    if (CurrentlySnapped == HS)
+                    {
+                        //Debug.Log($"Attached to a snappable.  Distance:{handHit.distance} Required:{HS.distanceSnapped}", gameObject);
+                        HS.TrySnap(gameObject);
+                        HandTargetPosition(HS.HandTarget);
+                    }
+                    else
+                    {
+                        ToggleState(RightHandStates.hand);
+                        HandReturnPosition();
+                        CurrentlySnapped.OnHandUnsnapped(gameObject);
+                        HandTargeting = false;
+                    }
+                }
+                else
+                {
+                    ToggleState(RightHandStates.hand);
+                    HandReturnPosition();
+                    CurrentlySnapped.OnHandUnsnapped(gameObject);
+                    HandTargeting = false;
+                }
+            }
+        }
       
         
     }
@@ -241,5 +304,6 @@ public enum RightHandStates
     tool,
     shotgun,
     uiselection,
-    smg
+    smg,
+    snapped
 }
